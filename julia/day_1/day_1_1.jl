@@ -1,5 +1,5 @@
 sum = 0
-f = open("day_1_input.txt", "r")
+f = open("input.txt", "r")
 while !eof(f)  
     global sum
     s = readline(f)

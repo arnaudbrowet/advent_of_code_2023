@@ -2,7 +2,7 @@ DIGITS = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"
 DIGITS_DIC = Dict(zip(DIGITS, collect(1:9)))
 
 sum = 0
-f = open("day_1_input.txt", "r")
+f = open("input.txt", "r")
 while !eof(f)  
     global sum
     d = []
