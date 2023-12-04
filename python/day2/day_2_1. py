@@ -1,0 +1,60 @@
+import re
+
+max_red = 12 
+max_green = 13  
+max_blue = 14
+
+with open('./input.txt', 'r') as f:
+    data = f.read()
+
+if data[-1]=='\n':
+    data = data[:-1]
+
+games = [g for g in data.split('\n')]
+
+valid_games = []
+
+def is_valid(draws, max):
+    if len(draws)==0:
+        return True
+    
+    is_valid = True
+    for d in draws:
+        if int(d) > max:
+            is_valid = False
+            break
+
+    return is_valid
+
+for game in games:
+
+    game_id, all_draws = game.split(': ')
+    match_id = re.match(r'Game (\d+)', game_id)
+
+    if match_id is None:
+        raise Exception('invalid game id')
+    
+    id = int(match_id.group(1))
+    # print(all_draws)
+
+    red_draws = re.findall(r"(\d+) red", all_draws)
+    red_valid = is_valid(red_draws, max_red)
+    if not red_valid:
+        # print('invalid red draw')
+        continue
+    blue_draws = re.findall(r"(\d+) blue", all_draws)
+    blue_valid = is_valid(blue_draws, max_blue)
+    if not blue_valid:
+        # print('invalid blue draw')
+        continue
+    green_draws = re.findall(r"(\d+) green", all_draws)
+    green_valid = is_valid(green_draws, max_green)
+    if not green_valid:
+        # print('invalid green draw')
+        continue
+
+    valid_games.append(id)
+    # print('valid draw')
+
+solution = sum(valid_games)
+print('Solution: ', solution)

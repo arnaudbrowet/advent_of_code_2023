@@ -1,0 +1,34 @@
+import re
+
+
+with open('./input.txt', 'r') as f:
+    data = f.read()
+
+if data[-1]=='\n':
+    data = data[:-1]
+
+games = [g for g in data.split('\n')]
+
+powers=[]
+for game in games:
+    
+    game_id, all_draws = game.split(': ')
+    match_id = re.match(r'Game (\d+)', game_id)
+
+    if match_id is None:
+        raise Exception('invalid game id')
+    
+    id = int(match_id.group(1))
+
+    red_draws = re.findall(r"(\d+) red", all_draws)
+    nb_reds = max([int(v) for v in red_draws])
+    blue_draws = re.findall(r"(\d+) blue", all_draws)
+    nb_blues = max([int(v) for v in blue_draws])
+    green_draws = re.findall(r"(\d+) green", all_draws)
+    nb_greens = max([int(v) for v in green_draws])
+    
+    power  =  nb_reds * nb_blues * nb_greens
+    powers.append(power)
+
+solution = sum(powers)
+print('Solution: ', solution)
