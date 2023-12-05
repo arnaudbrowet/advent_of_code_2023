@@ -26,7 +26,6 @@ while !eof(f)
     end
 end
 
-m = Inf32
 for mappings ∈ maps
     global seeds
     for (i, (l, u)) ∈ enumerate(seeds)
